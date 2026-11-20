@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ product.title }} | CyberShield{% endblock %}
+
+{% block content %}
+    <section class="section">
+      <div class="container" style="max-width: 800px;">
+        <article class="service-card" style="padding: 2.5rem;">
+          {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.title }}" class="service-card-img" style="height: 300px; margin-bottom: 1.5rem;">
+          {% endif %}
+          <a href="{% url 'catalog' %}?categoria={{ product.category.slug }}" class="service-card-tag">{{ product.category.name }}</a>
+          <h1 class="service-card-title" style="font-size: 2rem;">{{ product.title }}</h1>
+          <p class="service-card-desc" style="font-size: 1.05rem; margin-bottom: 1.5rem;">{{ product.description }}</p>
+          <div class="tag-list" style="margin-bottom: 2rem;">
+            {% for tag in product.tags.all %}
+              <a href="{% url 'catalog' %}?etiqueta={{ tag.slug }}" class="chip chip-sm">#{{ tag.name }}</a>
+            {% endfor %}
+          </div>
+          <div class="service-card-footer">
+            <span class="service-card-price" style="font-size: 1.3rem;">Valor base: ${{ product.price|floatformat:"0g" }}</span>
+            <a href="{% url 'contact' %}?servicio={{ product.category.slug }}" class="btn btn-primary">Cotizar este Servicio</a>
+          </div>
+        </article>
+        <p style="margin-top: 1.5rem;"><a href="{% url 'catalog' %}" class="nav-link">&larr; Volver al catálogo</a></p>
+      </div>
+    </section>
+{% endblock %}

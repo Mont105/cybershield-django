@@ -1,0 +1,98 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Catálogo de Servicios | CyberShield{% endblock %}
+
+{% block content %}
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h1 class="section-title">Servicios Técnicos Especializados</h1>
+          <p class="section-subtitle">Evaluación, mitigación y monitoreo continuo de activos digitales</p>
+        </div>
+
+        <!-- Filtros tipo etiqueta (se envían por GET) -->
+        <div class="filters">
+          <div class="filter-row">
+            <span class="filter-label">Categoría</span>
+            <a href="{% url 'catalog' %}{% if active_tag %}?etiqueta={{ active_tag.slug }}{% endif %}"
+               class="chip{% if not active_category %} chip-active{% endif %}">Todas</a>
+            {% for category in nav_categories %}
+              <a href="?categoria={{ category.slug }}{% if active_tag %}&etiqueta={{ active_tag.slug }}{% endif %}"
+                 class="chip{% if active_category == category %} chip-active{% endif %}">
+                {{ category.name }} <small>{{ category.total }}</small>
+              </a>
+            {% endfor %}
+          </div>
+          <div class="filter-row">
+            <span class="filter-label">Etiqueta</span>
+            <a href="{% url 'catalog' %}{% if active_category %}?categoria={{ active_category.slug }}{% endif %}"
+               class="chip{% if not active_tag %} chip-active{% endif %}">Todas</a>
+            {% for tag in nav_tags %}
+              <a href="?etiqueta={{ tag.slug }}{% if active_category %}&categoria={{ active_category.slug }}{% endif %}"
+                 class="chip{% if active_tag == tag %} chip-active{% endif %}">
+                #{{ tag.name }} <small>{{ tag.total }}</small>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        {% if active_category or active_tag %}
+          <p class="filter-summary">
+            Mostrando {{ page_obj.paginator.count }} servicio{{ page_obj.paginator.count|pluralize }}
+            {% if active_category %} en <strong>{{ active_category.name }}</strong>{% endif %}
+            {% if active_tag %} con la etiqueta <strong>#{{ active_tag.name }}</strong>{% endif %}
+            · <a href="{% url 'catalog' %}">Limpiar filtros</a>
+          </p>
+        {% endif %}
+
+        {% if page_obj.object_list %}
+          <div class="products-grid">
+            {% for item in page_obj %}
+              <article class="product-card">
+                {% if item.image %}
+                  <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                {% endif %}
+                <a href="?categoria={{ item.category.slug }}" class="service-card-tag">{{ item.category.name }}</a>
+                <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                <p>{{ item.description|truncatewords:22 }}</p>
+                <div class="tag-list">
+                  {% for tag in item.tags.all %}
+                    <a href="?etiqueta={{ tag.slug }}" class="chip chip-sm">#{{ tag.name }}</a>
+                  {% endfor %}
+                </div>
+                <div class="service-card-footer">
+                  <span class="product-price">${{ item.price|floatformat:"0g" }}</span>
+                  <a href="{{ item.get_absolute_url }}" class="btn btn-secondary">Detalle</a>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+
+          <!-- Navegación de paginación (conserva los filtros activos) -->
+          {% if page_obj.paginator.num_pages > 1 %}
+          <div class="pagination">
+            {% if page_obj.has_previous %}
+              <a href="?{% if filter_query %}{{ filter_query }}&{% endif %}page=1">&laquo; Primera</a>
+              <a href="?{% if filter_query %}{{ filter_query }}&{% endif %}page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+              <a href="?{% if filter_query %}{{ filter_query }}&{% endif %}page={{ page_obj.next_page_number }}">Siguiente</a>
+              <a href="?{% if filter_query %}{{ filter_query }}&{% endif %}page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+          </div>
+          {% endif %}
+
+        {% else %}
+          <div class="empty-state">
+            <h3>Sin servicios para este filtro</h3>
+            <p>No hay servicios disponibles con la combinación seleccionada.</p>
+            <a href="{% url 'catalog' %}" class="btn btn-primary">Ver todo el catálogo</a>
+          </div>
+        {% endif %}
+
+      </div>
+    </section>
+{% endblock %}

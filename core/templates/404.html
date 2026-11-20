@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% block title %}404 · Recurso no encontrado | CyberShield{% endblock %}
+
+{% block content %}
+    <!-- página de error 404 -->
+    <section class="error-page">
+      <div class="container error-container">
+        <span class="service-card-tag">Error 404 · Not Found</span>
+        <h1 class="error-code" aria-label="404">
+          <span>4</span><span class="error-code-shield">0</span><span>4</span>
+        </h1>
+        <h2 class="error-title">Acceso denegado al vacío</h2>
+        <p class="error-description">
+          El recurso que buscas no existe, fue movido o el filtro solicitado no coincide con ningún registro de nuestro catálogo.
+        </p>
+
+        <div class="hero-actions">
+          <a href="{% url 'home' %}" class="btn btn-primary">Volver al inicio</a>
+          <a href="{% url 'catalog' %}" class="btn btn-secondary">Ver catálogo</a>
+        </div>
+      </div>
+    </section>
+{% endblock %}

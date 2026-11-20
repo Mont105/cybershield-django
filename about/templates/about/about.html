@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Nosotros | CyberShield{% endblock %}
+
+{% block content %}
+    <!-- Presentación de la empresa -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h1 class="section-title">Sobre CyberShield</h1>
+          <p class="section-subtitle">Ingeniería aplicada a la mitigación de amenazas y resiliencia digital</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <p>Somos un equipo especializado en consultoría técnica de ciberseguridad ofensiva y defensiva. Ayudamos a organizaciones a resguardar sus activos de red, entornos en la nube y aplicaciones críticas ante vectores de ataque emergentes.</p>
+            <p>Operamos bajo estándares internacionales rigurosos como NIST Cybersecurity Framework, CIS Benchmarks y metodologías PTES, entregando resultados técnicos reproducibles y reportes ejecutivos orientados a la toma de decisiones.</p>
+            <div style="margin-top: 1.5rem;">
+              <a href="{% url 'contact' %}" class="btn btn-primary">Hablar con un Ingeniero</a>
+            </div>
+          </div>
+
+          <div>
+            <img src="{% static 'core/img/soc-siem.jpg' %}" alt="Centro de Operaciones de Seguridad (SOC)" class="about-img">
+            <div class="about-stats">
+              <div class="stat-item">
+                <div class="stat-number">+150</div>
+                <div class="stat-label">Auditorías Ejecutadas</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">Uptime SOC Garantizado</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Monitoreo y Telemetría</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Norma ISO/NIST</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

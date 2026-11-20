@@ -1,0 +1,10 @@
+{
+  "name": "CyberShield",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13",
+  "postCreateCommand": "pip install -r requirements.txt",
+  "postStartCommand": "DJANGO_SECRET_KEY=$(python -c \"import secrets; print(secrets.token_urlsafe(50))\") DJANGO_DEBUG=False nohup python manage.py runserver 0.0.0.0:8000 --insecure > /tmp/django.log 2>&1 &",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": { "label": "CyberShield", "onAutoForward": "silent" }
+  }
+}

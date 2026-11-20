@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}CyberShield | Soluciones de Ciberseguridad y TI{% endblock %}
+
+{% block content %}
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">Seguridad Defensiva y Continuidad Operativa TI</h1>
+        <p class="hero-description">Protegemos infraestructura crítica corporativa mediante auditorías de vulnerabilidades, monitoreo SOC 24/7 y hardening de servidores.</p>
+        <div class="hero-actions">
+          <a href="{% url 'catalog' %}" class="btn btn-primary">Ver Servicios</a>
+          <a href="{% url 'contact' %}" class="btn btn-secondary">Solicitar Cotización</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Destacados -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Servicios Principales</h2>
+          <p class="section-subtitle">Soluciones estructuradas para mitigar riesgos técnicos y normativos</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <img src="{% static 'core/img/pentesting-web.jpg' %}" alt="Test de Intrusión (Pentesting)" class="service-card-img">
+            <span class="service-card-tag">Ofensivo</span>
+            <h3 class="service-card-title">Test de Intrusión (Pentesting)</h3>
+            <p class="service-card-desc">Simulación de ataques externos e internos sobre redes y aplicaciones web para identificar brechas explotables.</p>
+            <div class="service-card-footer">
+              <span class="service-card-price">Cotizar</span>
+              <a href="{% url 'catalog' %}" class="btn btn-secondary">Detalle</a>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <img src="{% static 'core/img/soc-siem.jpg' %}" alt="Monitoreo SOC y SIEM" class="service-card-img">
+            <span class="service-card-tag">Defensivo</span>
+            <h3 class="service-card-title">Monitoreo SOC y SIEM</h3>
+            <p class="service-card-desc">Detección y respuesta temprana ante incidentes mediante telemetría continua y correlación de eventos en tiempo real.</p>
+            <div class="service-card-footer">
+              <span class="service-card-price">Plan Mensual</span>
+              <a href="{% url 'catalog' %}" class="btn btn-secondary">Detalle</a>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <img src="{% static 'core/img/hardening-servidores.jpg' %}" alt="Hardening de Servidores" class="service-card-img">
+            <span class="service-card-tag">Infraestructura</span>
+            <h3 class="service-card-title">Hardening de Servidores</h3>
+            <p class="service-card-desc">Cierre de vectores de ataque, configuración de políticas PAM, cortafuegos y bastionado de sistemas Linux/Windows.</p>
+            <div class="service-card-footer">
+              <span class="service-card-price">Por Nodo</span>
+              <a href="{% url 'catalog' %}" class="btn btn-secondary">Detalle</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+{% endblock %}

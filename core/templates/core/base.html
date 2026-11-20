@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}CyberShield | Soluciones de Ciberseguridad y TI{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+</head>
+<body>
+
+  <!-- Navegación -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="{% url 'home' %}" class="nav-logo">Cyber<span>Shield</span></a>
+      <ul class="nav-menu">
+        <li><a href="{% url 'home' %}" class="nav-link">Inicio</a></li>
+        <li><a href="{% url 'about' %}" class="nav-link">Nosotros</a></li>
+        <li><a href="{% url 'catalog' %}" class="nav-link">Servicios</a></li>
+        <li><a href="{% url 'contact' %}" class="nav-link">Contacto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    {% if messages %}
+      <div class="container messages">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 CyberShield SpA. Todos los derechos reservados.</p>
+      {% if nav_categories %}
+        <!-- Categorías inyectadas por catalog.context_processors.catalog_filters -->
+        <ul class="footer-links">
+          {% for category in nav_categories %}
+            <li><a href="{% url 'catalog' %}?categoria={{ category.slug }}">{{ category.name }} ({{ category.total }})</a></li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>Servicios de Ingeniería en Ciberseguridad</p>
+      {% endif %}
+    </div>
+  </footer>
+
+  <script src="{% static 'core/js/main.js' %}"></script>
+</body>
+</html>
